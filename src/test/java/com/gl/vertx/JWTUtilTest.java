@@ -44,7 +44,7 @@ public class JWTUtilTest {
 
     @Test
     void testParseTokenAsync() {
-        JWTUtil.parseTokenAsync(TOKEN_ADMIN, JWT_SECRET)
+        JWTUtil.parseTokenAsync(Vertx.vertx(), TOKEN_ADMIN, JWT_SECRET)
                 .onSuccess(token -> {
                     System.out.println("Parsed token: " + token);
                     assertEquals("admin", token.user());
@@ -55,7 +55,7 @@ public class JWTUtilTest {
 
     @Test
     void testParseToken() {
-        JWTUtil.Token token = JWTUtil.parseToken(TOKEN_USER, JWT_SECRET);
+        JWTUtil.Token token = JWTUtil.parseToken(Vertx.vertx(), TOKEN_USER, JWT_SECRET);
         System.out.println("Parsed token: " + token);
         assertEquals("user", token.user());
         assertEquals(List.of("user"), token.roles());

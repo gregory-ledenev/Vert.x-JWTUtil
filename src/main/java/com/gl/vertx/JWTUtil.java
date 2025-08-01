@@ -81,8 +81,8 @@ public class JWTUtil {
      * @param jwtSecret the secret key used for signing JWT tokens. It can be a plain password or a string in PEM format
      * @return a Future containing the parsed Token object with user ID and roles
      */
-    public static Future<Token> parseTokenAsync(String token, String jwtSecret) {
-        JWTAuth jwtAuth = JWTAuth.create(Vertx.vertx(), getJWTAuthOptions(jwtSecret));
+    public static Future<Token> parseTokenAsync(Vertx vertx, String token, String jwtSecret) {
+        JWTAuth jwtAuth = JWTAuth.create(vertx, getJWTAuthOptions(jwtSecret));
         return jwtAuth.authenticate(new TokenCredentials(token))
                 .onSuccess(User::principal)
                 .map(user -> new Token(user.principal().getString(SUB),
@@ -102,9 +102,9 @@ public class JWTUtil {
      * @return a Token object containing user ID and roles
      * @throws IllegalArgumentException if the token parsing fails
      */
-    public static Token parseToken(String token, String jwtSecret) {
+    public static Token parseToken(Vertx vertx, String token, String jwtSecret) {
         try {
-            return parseTokenAsync(token, jwtSecret).toCompletionStage().toCompletableFuture().get();
+            return parseTokenAsync(vertx, token, jwtSecret).toCompletionStage().toCompletableFuture().get();
         } catch (Exception e) {
             throw new IllegalArgumentException("Failed to parse token", e);
         }
