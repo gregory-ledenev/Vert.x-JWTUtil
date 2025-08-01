@@ -103,9 +103,7 @@ public class JWTUtilTest {
                 .uri(URI.create("http://" + HOST + ":" + PORT + path));
         if (token != null)
             builder = builder .header("Authorization", "Bearer " + token);
-        HttpRequest request = builder
-                .GET()
-                .build();
+        HttpRequest request = builder.GET().build();
 
         HttpResponse<String> response = null;
         try {
