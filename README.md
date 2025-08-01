@@ -9,7 +9,7 @@ To create a JWT token, you need to have the username, roles and a long password 
 String token = JWTUtil.createToken(vertx, "john-doe", List.of("user", "admin"), <SECRET KEY OR PASSWORD>);
 ```
 
-To parse a token, you can use the `parseTokenAsync` method, which returns a `Future<JsonObject>` containing the payload of the token:
+To parse a token, you can use the `parseTokenAsync(...)` method, which returns a `Future<Token>` containing the payload of the token:
 ```java
 JWTUtil.parseTokenAsync(TOKEN_ADMIN, JWT_SECRET)
         .onSuccess(token -> {
@@ -18,7 +18,7 @@ JWTUtil.parseTokenAsync(TOKEN_ADMIN, JWT_SECRET)
         .onFailure(Throwable::printStackTrace);
 ```
 
-Or you can use synchronous `parseToken` method. **Do NOT call this method on Vert.x event loop threads.**
+Or you can use synchronous `parseToken(...)` method. **Do NOT call this method on Vert.x event loop threads.**
 ```java
 String token = "your.jwt.token";
 Token token = JWTUtil.parseToken(vertx, token, <SECRET KEY OR PASSWORD>);
@@ -48,7 +48,7 @@ router.get("/protected/admin/*").handler(JWTUtil.guardedHandler("admin", ctx -> 
 ```
 
 ## Adding to Your Build
-To add JWTUtil to your build: copy com.gl.vertx.JWTUtil.java to your project and add 
+To add JWTUtil to your build: copy `com.gl.vertx.JWTUtil.java` to your project and add 
 it to your classpath.
 
 ## License
