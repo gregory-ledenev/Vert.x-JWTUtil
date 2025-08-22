@@ -83,7 +83,7 @@ public class JWTUtilTest {
     private void testAccessToProtectedRoute(Vertx vertx) {
         HttpClient client = HttpClient.newHttpClient();
 
-        String path = "/";
+        String path = "/?max=1&id=2";
         testPath(path, null, client, 200);
         testPath(path, null, client, 200);
 
@@ -126,7 +126,7 @@ public class JWTUtilTest {
         public void start(Promise<Void> startPromise) {
             Router router = Router.router(vertx);
 
-            cretaeFailurehandler(router);
+            createFailureHandler(router);
 
             router.route().handler(BodyHandler.create());
 
@@ -162,7 +162,7 @@ public class JWTUtilTest {
                     });
         }
 
-        private static void cretaeFailurehandler(Router router) {
+        private static void createFailureHandler(Router router) {
             router.route().failureHandler(ctx -> {
                 Throwable failure = ctx.failure();
                 if (failure instanceof HttpException) {

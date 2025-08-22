@@ -1,12 +1,12 @@
 # JWT Utility for Vert.x
-The JWTUtil class provides utility methods for working with JSON Web Tokens (JWT) in Vert.x applications. It simplifies the process of creating, signing, and verifying JWTs, applying JWT authentication and authorization to handlers, making it easier to implement authentication and authorization mechanisms.
+The JWTUtil class provides utility methods for working with [JSON Web Tokens](https://www.jwt.io/introduction) (JWT) in Vert.x applications. It simplifies the process of creating, signing, and verifying JWTs, applying JWT authentication and authorization to handlers, making it easier to implement authentication and authorization mechanisms.
 
 ## Working with Tokens
 
 To create a JWT token, you need to have the username, roles and a long password or a string with a key in PEM format. The password is used to sign the token. The token can be created using the `createToken` method:
 
 ```java
-String token = JWTUtil.createToken(vertx, "john-doe", List.of("user", "admin"), <SECRET KEY OR PASSWORD>);
+String token = JWTUtil.createToken(vertx, "john-doe", List.of("user", "admin"), null, <SECRET KEY OR PASSWORD>);
 ```
 
 To parse a token, you can use the `parseTokenAsync(...)` method, which returns a `Future<Token>` containing the payload of the token:
